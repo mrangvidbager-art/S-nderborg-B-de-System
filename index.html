@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<title>Auto Exotic Bode System</title>
+
+<style>
+
+body{
+font-family: Arial;
+background:#f4f4f4;
+text-align:center;
+padding:40px;
+}
+
+.container{
+background:white;
+padding:30px;
+border-radius:10px;
+max-width:600px;
+margin:auto;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+input,button{
+padding:10px;
+margin:10px;
+font-size:16px;
+width:80%;
+}
+
+button{
+background:#007BFF;
+color:white;
+border:none;
+cursor:pointer;
+}
+
+button:hover{
+background:#0056b3;
+}
+
+.result{
+margin-top:20px;
+font-size:18px;
+font-weight:bold;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Bode System</h1>
+
+<input id="userid" placeholder="Discord Bruger ID">
+
+<input id="fix" placeholder="Hvad blev fikset?">
+
+<input id="price" placeholder="Bode belob">
+
+<br>
+
+<button onclick="sendBode()">Send bode</button>
+
+<div class="result" id="resultat"></div>
+
+</div>
+
+<script>
+
+const webhook = "https://discord.com/api/webhooks/1479156030486089812/DXz5m_bxsMPVeyCOtCcTWUAxYfWh1GQsURi5ExmwA5IoQF9nBJDhPV3ctuvumKZ_DYti";
+
+function sendBode(){
+
+let userId = document.getElementById("userid").value;
+let fix = document.getElementById("fix").value;
+let price = document.getElementById("price").value;
+
+let message =
+`<@${userId}>
+
+Fikset: ${fix}
+
+Skriv - !remove-money "${userId}" "${price}"`;
+
+fetch(webhook,{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+content: message
+})
+});
+
+document.getElementById("resultat").innerHTML =
+"Boden er sendt til Discord.";
+
+}
+
+</script>
+
+</body>
+</html>
